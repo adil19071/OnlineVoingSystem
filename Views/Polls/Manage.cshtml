@@ -1,0 +1,47 @@
+@model IEnumerable<OnlineVotingSystem.Models.Poll>
+
+@{
+    ViewData["Title"] = "Manage Polls";
+}
+
+<h2>Manage Polls</h2>
+
+<p>
+    <a asp-action="Create" class="btn-primary">+ Create New Poll</a>
+</p>
+
+@if (!Model.Any())
+{
+    <p>No polls created yet.</p>
+}
+else
+{
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Active</th>
+                <th>Options</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var poll in Model)
+        {
+            <tr>
+                <td>@poll.Question</td>
+                <td>@(poll.IsActive ? "Yes" : "No")</td>
+                <td>@poll.Options.Count</td>
+                <td>@poll.CreatedAt.ToLocalTime().ToString("g")</td>
+                <td>
+                    <a asp-action="ManageOptions" asp-route-pollId="@poll.Id">Options</a> |
+                    <a asp-action="Edit" asp-route-id="@poll.Id">Edit</a> |
+                    <a asp-action="Results" asp-route-id="@poll.Id">Results</a> |
+                    <a asp-action="Delete" asp-route-id="@poll.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

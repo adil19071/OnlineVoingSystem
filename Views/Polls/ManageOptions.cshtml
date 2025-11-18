@@ -1,0 +1,50 @@
+@model OnlineVotingSystem.Models.Poll
+
+@{
+    ViewData["Title"] = "Manage Options";
+}
+
+<h2>Manage Options</h2>
+
+<div class="details-card">
+    <h3>@Model.Question</h3>
+    <p class="meta">Total options: @Model.Options.Count</p>
+</div>
+
+<p>
+    <a asp-action="CreateOption" asp-route-pollId="@Model.Id" class="btn-primary">+ Add Option</a>
+    <a asp-action="Manage" class="btn-secondary">Back to Polls</a>
+</p>
+
+@if (!Model.Options.Any())
+{
+    <p>No options added yet.</p>
+}
+else
+{
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Text</th>
+                <th>Votes</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var opt in Model.Options)
+        {
+            <tr>
+                <td>@opt.Text</td>
+                <td>@opt.VoteCount</td>
+                <td>
+                    <form asp-action="DeleteOption" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@opt.Id" />
+                        <input type="hidden" name="pollId" value="@Model.Id" />
+                        <button type="submit" class="btn-danger btn-small">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

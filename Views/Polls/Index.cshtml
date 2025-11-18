@@ -1,0 +1,26 @@
+@model IEnumerable<OnlineVotingSystem.Models.Poll>
+
+@{
+    ViewData["Title"] = "Active Polls";
+}
+
+<h2>Active Polls</h2>
+
+@if (!Model.Any())
+{
+    <p>No active polls available right now.</p>
+}
+else
+{
+    <div class="card-list">
+        @foreach (var poll in Model)
+        {
+            <div class="card">
+                <h3>@poll.Question</h3>
+                <p class="meta">Options: @poll.Options.Count | Created: @poll.CreatedAt.ToLocalTime().ToString("g")</p>
+                <a asp-action="Details" asp-route-id="@poll.Id" class="btn-primary">Vote</a>
+                <a asp-action="Results" asp-route-id="@poll.Id" class="btn-secondary">View Results</a>
+            </div>
+        }
+    </div>
+}

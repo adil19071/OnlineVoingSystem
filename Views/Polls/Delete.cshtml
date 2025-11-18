@@ -1,0 +1,28 @@
+@model OnlineVotingSystem.Models.Poll
+
+@{
+    ViewData["Title"] = "Delete Poll";
+}
+
+<h2>Delete Poll</h2>
+
+<h3>Are you sure you want to delete this poll?</h3>
+
+<div class="details-card">
+    <dl>
+        <dt>Question</dt>
+        <dd>@Model.Question</dd>
+
+        <dt>Active</dt>
+        <dd>@(Model.IsActive ? "Yes" : "No")</dd>
+
+        <dt>Created</dt>
+        <dd>@Model.CreatedAt.ToLocalTime().ToString("g")</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn-danger">Delete</button>
+    <a asp-action="Manage" class="btn-secondary">Cancel</a>
+</form>

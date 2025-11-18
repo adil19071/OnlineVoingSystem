@@ -1,0 +1,35 @@
+@model OnlineVotingSystem.Models.Poll
+
+@{
+    ViewData["Title"] = "Vote";
+}
+
+<h2>Vote</h2>
+
+<div class="card">
+    <h3>@Model.Question</h3>
+
+    @if (!Model.Options.Any())
+    {
+        <p>No options have been added yet.</p>
+    }
+    else
+    {
+        <form asp-action="Vote" method="post">
+            <input type="hidden" name="pollId" value="@Model.Id" />
+            <ul class="option-list">
+                @foreach (var option in Model.Options)
+                {
+                    <li>
+                        <label>
+                            <input type="radio" name="optionId" value="@option.Id" required />
+                            @option.Text
+                        </label>
+                    </li>
+                }
+            </ul>
+            <button type="submit" class="btn-primary">Submit Vote</button>
+            <a asp-action="Index" class="btn-secondary">Back to Polls</a>
+        </form>
+    }
+</div>

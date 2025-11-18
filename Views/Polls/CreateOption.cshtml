@@ -1,0 +1,26 @@
+@model OnlineVotingSystem.Models.PollOption
+
+@{
+    ViewData["Title"] = "Create Option";
+    var pollId = ViewBag.PollId;
+}
+
+<h2>Create Option</h2>
+
+<form asp-action="CreateOption" method="post" class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="PollId" value="@pollId" />
+
+    <div class="form-group">
+        <label asp-for="Text"></label>
+        <input asp-for="Text" />
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn-primary">Save</button>
+    <a asp-action="ManageOptions" asp-route-pollId="@pollId" class="btn-secondary">Back</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

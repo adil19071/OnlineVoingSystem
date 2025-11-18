@@ -1,0 +1,40 @@
+@model OnlineVotingSystem.Models.Poll
+
+@{
+    ViewData["Title"] = "Results";
+    var totalVotes = Model.Options.Sum(o => o.VoteCount);
+}
+
+<h2>Results</h2>
+
+<div class="card">
+    <h3>@Model.Question</h3>
+
+    @if (!Model.Options.Any())
+    {
+        <p>No options available.</p>
+    }
+    else
+    {
+        <p class="meta">Total votes: @totalVotes</p>
+        <div class="results-list">
+            @foreach (var option in Model.Options)
+            {
+                var percentage = totalVotes == 0 ? 0 : (int)((option.VoteCount * 100.0) / totalVotes);
+                <div class="result-item">
+                    <div class="result-header">
+                        <span>@option.Text</span>
+                        <span>@option.VoteCount votes (@percentage%)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:@percentage%"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <p>
+        <a asp-action="Index" class="btn-secondary">Back to Polls</a>
+    </p>
+</div>

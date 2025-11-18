@@ -1,0 +1,31 @@
+@model OnlineVotingSystem.Models.Poll
+
+@{
+    ViewData["Title"] = "Create Poll";
+}
+
+<h2>Create Poll</h2>
+
+<form asp-action="Create" method="post" class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Question"></label>
+        <input asp-for="Question" />
+        <span asp-validation-for="Question" class="text-danger"></span>
+    </div>
+
+    <div class="form-group checkbox-group">
+        <label>
+            <input asp-for="IsActive" />
+            @Html.DisplayNameFor(m => m.IsActive)
+        </label>
+    </div>
+
+    <button type="submit" class="btn-primary">Save</button>
+    <a asp-action="Manage" class="btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
