@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Online Voting System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="top-bar">
+        <div class="container header-content">
+            <h1 class="logo">Online Voting System</h1>
+            <nav>
+                <a asp-controller="Polls" asp-action="Index">Home</a>
+                <a asp-controller="Polls" asp-action="Manage">Manage Polls</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - Online Voting System</p>
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
