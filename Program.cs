@@ -10,6 +10,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+
+// ===============================
+// RUN DATABASE MIGRATIONS ON STARTUP
+// ===============================
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();  // creates DB + tables if missing
+    // OPTIONAL: for migration support use db.Database.Migrate();
+}
+// ===============================
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Polls/Error");
